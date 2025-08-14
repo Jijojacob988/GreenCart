@@ -19,11 +19,11 @@ export const addProduct = async (req, res)=>{
 
       await Product.create({...productData, image: imagesUrl})
 
-      res.JSON({success: true, message: "Product Added"})
+      res.json({success: true, message: "Product Added"})
 
     } catch (error) {
         console.log(error.message);
-        res.JSON({ success: false, message: error.message })
+        res.json({ success: false, message: error.message })
         
         
     }
@@ -36,7 +36,7 @@ export const productList = async (req, res)=>{
         res.json({success: true, products})
     } catch (error) {
         console.log(error.message);
-        res.JSON({ success: false, message: error.message })
+        res.json({ success: false, message: error.message })
     }
 
 }
@@ -49,7 +49,7 @@ export const productById = async (req, res)=>{
         res.json({success: true, product})
     } catch (error) {
          console.log(error.message);
-        res.JSON({ success: false, message: error.message })
+        res.json({ success: false, message: error.message })
     }
     }
 
@@ -63,7 +63,7 @@ export const changeStock = async (req, res)=>{
         res.json({success: true, message: "Stock Updated"})
     } catch (error) {
          console.log(error.message);
-        res.JSON({ success: false, message: error.message })
+        res.json({ success: true, message: "Product added" });
     }
     }
 
