@@ -7,14 +7,18 @@ export const addAddress = async (req, res) => {
     const { address } = req.body;
 
     if (!userId) {
-      return res.json({ success: false, message: "User not authenticated" });
+      return res.status(401).json({ success: false, message: "User not authenticated" });
     }
 
-    await Address.create({ ...address, userId });
-    res.json({ success: true, message: "Address added successfully" });
+    if (!address) {
+      return res.status(400).json({ success: false, message: "Address is required" });
+    }
+
+    const newAddress = await Address.create({ ...address, userId });
+    res.json({ success: true, message: "Address added successfully", address: newAddress });
   } catch (error) {
-    console.log(error.message);
-    res.json({ success: false, message: error.message });
+    console.log("Add Address Error:", error.message);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -24,13 +28,13 @@ export const getAddress = async (req, res) => {
     const userId = req.userId; // ✅ comes from authUser middleware
 
     if (!userId) {
-      return res.json({ success: false, message: "User not authenticated" });
+      return res.status(401).json({ success: false, message: "User not authenticated" });
     }
 
     const addresses = await Address.find({ userId });
     res.json({ success: true, addresses });
   } catch (error) {
-    console.log(error.message);
-    res.json({ success: false, message: error.message });
+    console.log("Get Address Error:", error.message);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
