@@ -26,3 +26,6 @@ backend/node_modules/
 # Optional (for monorepo-style apps)
 **/node_modules/
 **/dist/
+
+# .gitignore
+client/.vite/
